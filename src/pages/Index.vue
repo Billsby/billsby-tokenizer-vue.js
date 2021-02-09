@@ -47,9 +47,13 @@
           <h6 class="t-title">Console</h6>
         </div>
         <div class="console-body">
-          <div id="myApplication"></div>
-          {{dataVal}}
-          <!-- <vue-json-pretty id="consoleSample" :path="'res'" :data="{ key:  }" name="Console"></vue-json-pretty> -->
+          {{dataSample}}
+          <!-- <vue-json-pretty :path="'res'" :data="{ key: JSON.parse(dataSample)}" @click="handleClick"> </vue-json-pretty> -->
+          <!-- <vue-json-pretty
+            :path="'res'"
+            :data="{ key: 'dataSample' }"
+            @click="handleClick">
+          </vue-json-pretty> -->
           <!-- <JSONPretty id="json-pretty" data=""></JSONPretty> -->
         </div>
       </div>
@@ -57,8 +61,9 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import 'vue-json-pretty/lib/styles.css';
+  // import Vue from 'vue'
+  // import VueJsonPretty from 'vue-json-pretty';
+  // import 'vue-json-pretty/lib/styles.css';
 
   const billsbyTokens = window.billsbyTokens;
   let dataVal = [];
@@ -78,26 +83,16 @@
   });
 
   billsbyTokens.on("paymentMethod", function (token, pmData) {
-    // setPmDataVal(pmData)
-    dataVal.push(JSON.stringify(pmData))
+    let pmDataStringify = JSON.stringify(pmData, null, 2)
+    var pmDataParse = JSON.parse(pmDataStringify.replace(/n;/g,'"'))
+    dataVal.push(pmDataParse)
     console.log(token);
     console.log(pmData)
-    var vm = new Vue({
-      el: '#myApplication',
-      data: {
-        attributeA: pmData,
-        attributeB: 'valueB'
-      }
-    })
-    alert(vm.attributeA)
   });
 
-
+  console.log(dataVal)
   export default {
     name: "Index",
-    props: {
-      dataVal: dataVal
-    },
     data: function() {
       return {
         submitPaymentForm: function(evt) {
@@ -111,8 +106,11 @@
           billsbyTokens.tokenizeCreditCard(requiredFields);
           console.log(dataVal)
         },
-        
+        dataSample: dataVal
       }
-    }
+    },
+    // components: {
+    //   VueJsonPretty,
+    // }
   }
 </script>
