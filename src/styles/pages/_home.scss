@@ -93,7 +93,11 @@
   .__json-pretty__ .__json-string__,
   .__json-pretty__ .__json-key__,
   .__json-pretty__ .__json-value__,
-  .__json-pretty__ .__json-boolean__ {
+  .__json-pretty__ .__json-boolean__,
+  .vjs-tree .vjs-value__string,
+  .vjs-tree .vjs-value__null,
+  .vjs-tree .vjs-value__boolean, 
+  .vjs-tree .vjs-value__number {
     opacity: 1;
     color: $darkest-gray;
   }
