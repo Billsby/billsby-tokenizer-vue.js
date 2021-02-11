@@ -47,22 +47,23 @@
         <h6 class="t-title">Console</h6>
       </div>
       <div class="console-body">
-        {{dataSample}}
-        <vue-json-pretty :path="'res'" :data="{ key: dataSample }" @change="submitPaymentForm"> </vue-json-pretty>
+        <div v-if="dataSample.length !== 0">
+          <vue-json-pretty :path="'res'" :data="{ key: dataSample }" @change="submitPaymentForm"> </vue-json-pretty>
+        </div>
       </div>
     </div>
   </main>
 </template>
 
 <script>
-  // import VueJsonPretty from 'vue-json-pretty';
+  import VueJsonPretty from 'vue-json-pretty';
   import 'vue-json-pretty/lib/styles.css';
 
   export default {
     name: "Index",
-    // components: {
-    //   VueJsonPretty,
-    // },
+    components: {
+      VueJsonPretty,
+    },
     mounted() {
       this.billsbyTokens = window.billsbyTokens;
       this.billsbyTokens.on('paymentMethod', this.eventListerPaymentMethod);
@@ -73,11 +74,9 @@
       });
       this.billsbyTokens.on("errors", function (errors) {
         for (var i = 0; i < errors.length; i++) {
-          var error = errors[i];
-          console.log(error);
+          errors[i];
         }
       });
-      console.log(this.eventListerPaymentMethod)
     },
     beforeDestroy() {
       if (!this.billsbyTokens) return; // ignore if billsby from data is null
@@ -103,15 +102,11 @@
           month,
           year
         }
-        const data = this.billsbyTokens.tokenizeCreditCard(requiredField);
-        console.log(data)
+        this.billsbyTokens.tokenizeCreditCard(requiredField);
       },
       eventListerPaymentMethod(token, pmData) {
-        console.log(token)
-        console.log(pmData)
         this.dataSample = pmData
-        JSON.stringify(JSON.parse(this.dataSample), null, 2)
-        console.log(this.dataSample = pmData)
+        // JSON.stringify(JSON.parse(this.dataSample), null, 2)
       }
     },
   }
