@@ -63,7 +63,7 @@
   .console-body {
     padding: 20px 25px;
     margin-top: 80px;
-    height: calc(100vh - 195.34px); //minus height of header , height of console header , padding to & bottom in console body
+    height: calc(100vh - 185px); //minus height of header , height of console header , padding to & bottom in console body
     overflow-y: auto;
 
     &::-webkit-scrollbar {
@@ -93,7 +93,13 @@
   .__json-pretty__ .__json-string__,
   .__json-pretty__ .__json-key__,
   .__json-pretty__ .__json-value__,
-  .__json-pretty__ .__json-boolean__ {
+  .__json-pretty__ .__json-boolean__,
+  .vjs-tree .vjs-value__string,
+  .vjs-tree .vjs-value__null,
+  .vjs-tree .vjs-value__boolean, 
+  .vjs-tree .vjs-value__number,
+  .vjs-key,
+  .vjs-tree__brackets {
     opacity: 1;
     color: $darkest-gray;
   }
